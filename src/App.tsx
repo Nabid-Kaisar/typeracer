@@ -1,24 +1,33 @@
-import React from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import DisplayText from "./components/DisplayText";
+import {getRandomText} from "./helpers/Helper"
+import Input from "./components/Input";
 
+const para = getRandomText()
 function App() {
+
+    const [currentInput, setCurrentInput] = useState('');
+
+    const t = "TypeRacer";
+
+    const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+        const {value} = e.target;
+
+        if(value === ' '){
+            if(t === currentInput){
+                setCurrentInput('')
+            }
+        }
+
+        setCurrentInput(e.target.value);
+    }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <DisplayText paragraph={para}/>
+        <Input label={'You Race Here->'} placeholder={'type here'} handleChange={handleInputChange} />
     </div>
   );
 }

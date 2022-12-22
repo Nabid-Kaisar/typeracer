@@ -1,7 +1,6 @@
 import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import {sentenceToWordsArray} from "../helpers/util";
 
 const useStyles = makeStyles({
     root: {
@@ -12,17 +11,25 @@ const useStyles = makeStyles({
 });
 
 interface DisplayTextPropTypes {
-    paragraph: string;
+    wordsArray: Array<wordsArrayType>;
 }
 
-const DisplayText: React.FC<DisplayTextPropTypes> = ({paragraph}) => {
+interface wordsArrayType {
+    word: string;
+    correct: boolean;
+}
+
+const DisplayText: React.FC<DisplayTextPropTypes> = ({wordsArray}) => {
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
             <Typography variant="h6" component="h2">
-                {sentenceToWordsArray(paragraph).map((word, idx) => {
-                    return <span key={idx}>{word + ' '}</span>
+                {wordsArray.map((wordData, idx) => {
+                    if (wordData.correct) {
+                        return <span style={{background: 'green'}} key={idx}>{wordData.word + ' '}</span>
+                    } else return <span key={idx}>{wordData.word + ' '}</span>
+
                 })}
             </Typography>
         </div>

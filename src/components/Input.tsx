@@ -12,12 +12,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface InputPropTypes {
+    value: string;
     handleChange: (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>)=> void;
     placeholder: string;
     label: string;
 }
 
-const Input:React.FC<InputPropTypes>= ({handleChange, placeholder, label}) => {
+const Input:React.FC<InputPropTypes>= ({handleChange, placeholder, label, value}) => {
     const classes = useStyles();
 
     return (
@@ -28,6 +29,7 @@ const Input:React.FC<InputPropTypes>= ({handleChange, placeholder, label}) => {
                     id="standard-basic"
                     label={label}
                     placeholder={placeholder}
+                    value={value}
                 />
             </div>
         </form>

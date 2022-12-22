@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles((theme) => ({
@@ -13,13 +13,14 @@ const useStyles = makeStyles((theme) => ({
 
 interface InputPropTypes {
     value: string;
-    handleChange: (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>)=> void;
+    handleChange: (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
     placeholder: string;
     label: string;
     className?: string;
+    disabled?: boolean;
 }
 
-const Input:React.FC<InputPropTypes>= ({handleChange, placeholder, label, value,className}) => {
+const Input: React.FC<InputPropTypes> = ({disabled = false, handleChange, placeholder, label, value, className}) => {
     const classes = useStyles();
 
     return (
@@ -32,6 +33,7 @@ const Input:React.FC<InputPropTypes>= ({handleChange, placeholder, label, value,
                     label={label}
                     placeholder={placeholder}
                     value={value}
+                    disabled={disabled}
                 />
             </div>
         </form>

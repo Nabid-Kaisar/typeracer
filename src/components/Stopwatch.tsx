@@ -27,12 +27,15 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface StopwatchType {
     containerClassName: string;
+    isRunning: boolean;
+    setIsRunning:  React.Dispatch<React.SetStateAction<boolean>>;
+    time: number;
+    setTime:  React.Dispatch<React.SetStateAction<number>>;
 }
 
-const Stopwatch: React.FC<StopwatchType> = ({containerClassName}) => {
+const Stopwatch: React.FC<StopwatchType> = ({containerClassName, isRunning, setIsRunning, time, setTime}) => {
     const classes = useStyles();
-    const [time, setTime] = useState(0);
-    const [isRunning, setIsRunning] = useState(false);
+
 
     useEffect(() => {
         let interval: NodeJS.Timeout;

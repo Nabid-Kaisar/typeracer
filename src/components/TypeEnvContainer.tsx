@@ -1,8 +1,8 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
-import DisplayText from "../components/DisplayText";
-import Input from "../components/Input";
+import DisplayText from "./DisplayText";
+import Input from "./Input";
 import {getRandomText, sentenceToWordsArray} from "../helpers/util";
-import Stopwatch from "../components/Stopwatch";
+import Stopwatch from "./Stopwatch";
 
 interface TypeEnvContainerTypes {
 
@@ -16,6 +16,9 @@ const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = () => {
     const [currentInput, setCurrentInput] = useState('');
     const [wordsArr, setWordsArr] = useState(fixedWordsArrayWithOtherFields);
     const [currentIdx, setCurrentIdx] = useState(0);
+
+    const [time, setTime] = useState(0);
+    const [isRunning, setIsRunning] = useState(false);
 
     const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         const {value} = e.target;
@@ -31,7 +34,14 @@ const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = () => {
             setWordsArr(newWordsArr);
             setCurrentIdx(currentIdx + 1);
         }
-    }, [currentInput])
+    }, [currentInput]);
+
+    useEffect(()=>{
+        if(currentIdx >= wordsArr.length){
+            alert('end!')
+        }
+        setIsRunning(false);
+    },[currentIdx])
 
     return (
         <div className={'w-3/4 border-2 border-[#3f51b5] flex justify-center flex-col p-8 mt-10'}>
@@ -40,8 +50,15 @@ const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = () => {
 
                 <Input className={'text-left'} value={currentInput} label={'You Race Here...'}
                        placeholder={''}
-                       handleChange={handleInputChange}/>
-                <Stopwatch containerClassName={'text-right ml-5 mt-3'}/>
+                       handleChange={handleInputChange}
+                       disabled={!isRunning}
+                />
+                <Stopwatch
+                    time={time}
+                    setTime={setTime}
+                    isRunning={isRunning}
+                    setIsRunning={setIsRunning}
+                    containerClassName={'text-right ml-5 mt-3'}/>
             </div>
 
         </div>

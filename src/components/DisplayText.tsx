@@ -27,7 +27,7 @@ const DisplayText: React.FC<DisplayTextPropTypes> = ({wordsArray}) => {
             <Typography variant="h6" component="h2">
                 {wordsArray.map((wordData, idx) => {
                     if (wordData.correct) {
-                        return <span style={{background: 'green'}} key={idx}>{wordData.word + ' '}</span>
+                        return <span style={{background: 'greenyellow'}} key={idx}>{wordData.word + ' '}</span>
                     } else return <span key={idx}>{wordData.word + ' '}</span>
 
                 })}

@@ -16,15 +16,17 @@ interface InputPropTypes {
     handleChange: (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>)=> void;
     placeholder: string;
     label: string;
+    className?: string;
 }
 
-const Input:React.FC<InputPropTypes>= ({handleChange, placeholder, label, value}) => {
+const Input:React.FC<InputPropTypes>= ({handleChange, placeholder, label, value,className}) => {
     const classes = useStyles();
 
     return (
         <form className={classes.root} noValidate autoComplete="off">
             <div>
                 <TextField
+                    className={className}
                     onChange={handleChange}
                     id="standard-basic"
                     label={label}

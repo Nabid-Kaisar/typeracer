@@ -1,7 +1,7 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import {sentenceToWordsArray} from "../helpers/Helper";
+import {sentenceToWordsArray} from "../helpers/util";
 
 const useStyles = makeStyles({
     root: {
@@ -20,9 +20,9 @@ const DisplayText: React.FC<DisplayTextPropTypes> = ({paragraph}) => {
 
     return (
         <div className={classes.root}>
-            <Typography variant="h5" component="h2">
-                {sentenceToWordsArray(paragraph).map(word=>{
-                    return <span>{word + ' '}</span>
+            <Typography variant="h6" component="h2">
+                {sentenceToWordsArray(paragraph).map((word, idx) => {
+                    return <span key={idx}>{word + ' '}</span>
                 })}
             </Typography>
         </div>

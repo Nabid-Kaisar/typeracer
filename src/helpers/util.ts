@@ -5,5 +5,5 @@ export  function getRandomText(){
 }
 
 export function sentenceToWordsArray(sentence:string) {
-    return sentence.split(/\W+/);
+    return sentence.split(" ");
 }

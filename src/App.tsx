@@ -2,7 +2,7 @@ import React, {ChangeEvent, useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import DisplayText from "./components/DisplayText";
-import {getRandomText} from "./helpers/Helper"
+import {getRandomText} from "./helpers/util"
 import Input from "./components/Input";
 
 const para = getRandomText()

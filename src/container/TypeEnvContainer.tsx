@@ -2,8 +2,9 @@ import React, {ChangeEvent, useEffect, useState} from "react";
 import DisplayText from "../components/DisplayText";
 import Input from "../components/Input";
 import {getRandomText, sentenceToWordsArray} from "../helpers/util";
+import Stopwatch from "../components/Stopwatch";
 
-interface TypeEnvContainerTypes{
+interface TypeEnvContainerTypes {
 
 }
 
@@ -11,7 +12,7 @@ const para = getRandomText()
 const fixedWordsArray = sentenceToWordsArray(getRandomText());
 const fixedWordsArrayWithOtherFields = fixedWordsArray.map(w => ({word: w, correct: false}))
 
-const TypeEnvContainer:React.FC<TypeEnvContainerTypes>= ()=>{
+const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = () => {
     const [currentInput, setCurrentInput] = useState('');
     const [wordsArr, setWordsArr] = useState(fixedWordsArrayWithOtherFields);
     const [currentIdx, setCurrentIdx] = useState(0);
@@ -33,10 +34,16 @@ const TypeEnvContainer:React.FC<TypeEnvContainerTypes>= ()=>{
     }, [currentInput])
 
     return (
-        <div className={'w-3/4 border-2 border-blue-500 flex justify-center flex-col p-8 mt-10'}>
+        <div className={'w-3/4 border-2 border-[#3f51b5] flex justify-center flex-col p-8 mt-10'}>
             <DisplayText wordsArray={wordsArr}/>
-            <Input className={'text-center'} value={currentInput} label={'You Race Here->'} placeholder={'type here'}
-                   handleChange={handleInputChange}/>
+            <div className='flex flex-row'>
+
+                <Input className={'text-left'} value={currentInput} label={'You Race Here...'}
+                       placeholder={''}
+                       handleChange={handleInputChange}/>
+                <Stopwatch containerClassName={'text-right ml-5 mt-3'}/>
+            </div>
+
         </div>
     )
 }

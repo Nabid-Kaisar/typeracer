@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, KeyboardEventHandler} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
@@ -18,6 +18,7 @@ interface InputPropTypes {
     label: string;
     className?: string;
     disabled?: boolean;
+    handleKeyDown?: KeyboardEventHandler<HTMLDivElement> | undefined;
 }
 
 const Input = React.forwardRef((props: InputPropTypes, ref) => {
@@ -27,7 +28,8 @@ const Input = React.forwardRef((props: InputPropTypes, ref) => {
         placeholder,
         label,
         value,
-        className
+        className,
+        handleKeyDown
     } = props;
 
     const classes = useStyles();
@@ -44,6 +46,7 @@ const Input = React.forwardRef((props: InputPropTypes, ref) => {
                     placeholder={placeholder}
                     value={value}
                     disabled={disabled}
+                    onKeyDown={handleKeyDown}
                 />
             </div>
         </form>

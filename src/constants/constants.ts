@@ -4,3 +4,5 @@ export const fixedText3 = `TypeRacer is a multiplayer online typing game that al
 export const fixedText2 = `online typing game`;
 
 export const unitOfResult = 60; // showing in minutes (60seconds)
+
+export const enterKey = 'Enter';

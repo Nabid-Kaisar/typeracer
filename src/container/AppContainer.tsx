@@ -6,7 +6,7 @@ interface AppContainerType {
 
 const AppContainer: React.FC<AppContainerType> = ({children}) => {
     return (
-        <div className='flex justify-center'>
+        <div className='flex justify-center flex-col'>
             {Array.isArray(children) ? children.map(child => child) : children}
         </div>
     );

@@ -11,10 +11,10 @@ const useStyles = makeStyles({
 });
 
 interface DisplayTextPropTypes {
-    wordsArray: Array<wordsArrayType>;
+    wordsArray: Array<WordsArrayType>;
 }
 
-interface wordsArrayType {
+export interface WordsArrayType {
     word: string;
     correct: boolean;
 }

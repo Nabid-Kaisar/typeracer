@@ -11,11 +11,19 @@ interface TypeEnvContainerTypes {
     setWordsArr: Dispatch<SetStateAction<{ word: string; correct: boolean; }[]>>;
     time: number;
     setTime: Dispatch<SetStateAction<number>>;
+    currentIdx: number;
+    setCurrentIdx: Dispatch<SetStateAction<number>>;
 }
 
-const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = ({wordsArr, setWordsArr, time, setTime,}) => {
+const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = ({
+                                                               wordsArr,
+                                                               setWordsArr,
+                                                               time,
+                                                               setTime,
+                                                               currentIdx,
+                                                               setCurrentIdx
+                                                           }) => {
     const [currentInput, setCurrentInput] = useState('');
-    const [currentIdx, setCurrentIdx] = useState(0);
 
     const [isRunning, setIsRunning] = useState(false);
 
@@ -30,10 +38,9 @@ const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = ({wordsArr, setWordsAr
     const handleGameEnd = () => {
         setCurrentIdx(0);
         setIsRunning(false);
-        setTime(0);
     }
 
-    const handleGameStart = () =>{
+    const handleGameStart = () => {
         setCurrentIdx(0);
         setTime(0);
         inputRef?.current?.focus();
@@ -59,10 +66,10 @@ const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = ({wordsArr, setWordsAr
         }
     }, [currentIdx])
 
-    useEffect(()=>{
-        if(isRunning === true) handleGameStart();
-        if(isRunning === false) handleGameEnd();
-    },[isRunning])
+    useEffect(() => {
+        if (isRunning === true) handleGameStart();
+        if (isRunning === false) handleGameEnd();
+    }, [isRunning])
 
     return (
         <div className={'w-3/4 border-2 border-[#3f51b5] flex justify-center flex-col p-8 mt-10'}>

@@ -20,13 +20,23 @@ interface InputPropTypes {
     disabled?: boolean;
 }
 
-const Input: React.FC<InputPropTypes> = ({disabled = false, handleChange, placeholder, label, value, className}) => {
+const Input = React.forwardRef((props: InputPropTypes, ref) => {
+    const {
+        disabled = false,
+        handleChange,
+        placeholder,
+        label,
+        value,
+        className
+    } = props;
+
     const classes = useStyles();
 
     return (
         <form className={classes.root} noValidate autoComplete="off">
             <div>
                 <TextField
+                    inputRef={ref}
                     className={className}
                     onChange={handleChange}
                     id="standard-basic"
@@ -38,6 +48,7 @@ const Input: React.FC<InputPropTypes> = ({disabled = false, handleChange, placeh
             </div>
         </form>
     );
-};
+})
+
 
 export default Input;

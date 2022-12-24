@@ -1,13 +1,13 @@
 import React from "react";
 
 interface AppContainerType {
-    children: JSX.Element;
+    children: Array<JSX.Element> | JSX.Element;
 }
 
 const AppContainer: React.FC<AppContainerType> = ({children}) => {
     return (
         <div className='flex justify-center'>
-            {children}
+            {Array.isArray(children) ? children.map(child => child) : children}
         </div>
     );
 }

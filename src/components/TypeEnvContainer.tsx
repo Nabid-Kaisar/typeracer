@@ -26,7 +26,17 @@ const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = () => {
         setCurrentInput(value);
     }
 
+    const handleGameEnd = () =>{
+        setCurrentIdx(0);
+        setIsRunning(false);
+        setTime(0);
+    }
+
     useEffect(() => {
+        if(currentIdx >= wordsArr.length) {
+           return;
+        }
+
         if (wordsArr[currentIdx].word === currentInput) {
             setCurrentInput('')
             let newWordsArr = [...wordsArr];
@@ -38,9 +48,9 @@ const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = () => {
 
     useEffect(()=>{
         if(currentIdx >= wordsArr.length){
-            alert('end!')
+            handleGameEnd();
         }
-        setIsRunning(false);
+        // setIsRunning(false);
     },[currentIdx])
 
     return (

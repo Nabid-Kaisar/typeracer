@@ -1,8 +1,14 @@
 export const fixedText2 = `TypeRacer is a multiplayer online typing game that allows you to race against other players to see who can type a passage of text the fastest. The game presents you with a passage of text and a timer, and you must type the passage as quickly and accurately as possible. As you type, the game tracks your progress and displays your typing speed in words per minute. TypeRacer is a fun and engaging way to improve your typing skills and compete with others. It is also a great tool for educators to use in the classroom to help students improve their typing speed and accuracy`;
-export const fixedText3 = `TypeRacer is a multiplayer online typing game that allows you to race against other players to see who can type a passage of text the fastest.`
+export const fixedText3 = `TypeRacer is a multiplayer online typing game that allows you to race against other players to see who can type a passage of text the fastest.`;
 
 export const fixedText = `online typing game`;
 
 export const unitOfResult = 60; // showing in minutes (60seconds)
 
-export const enterKey = 'Enter';
+export const enterKey = "Enter";
+
+export const wpmColorMapping = [
+  { color: "#00ff00", rangeMin: 60, rangeMax: 999 },
+  { color: "grey", rangeMin: 40, rangeMax: 60 },
+  { color: "#f50057", rangeMin: 0, rangeMax: 40 },
+];

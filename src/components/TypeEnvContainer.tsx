@@ -110,7 +110,7 @@ const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = ({
   return (
     <div
       className={
-        "w-3/4 border-2 border-[#3f51b5] flex justify-center flex-col p-8 mt-10"
+        "w-3/4 border-2 border-[#3f51b5] flex justify-center flex-col p-8 mt-10 w-auto"
       }
     >
       <DisplayText wordsArray={wordsArr} />

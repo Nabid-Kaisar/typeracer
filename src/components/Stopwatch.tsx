@@ -3,7 +3,8 @@ import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
-import DangerousIcon from '@mui/icons-material/Dangerous';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import CloseIcon from '@mui/icons-material/Close';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -31,8 +32,8 @@ interface StopwatchType {
     setIsRunning: React.Dispatch<React.SetStateAction<boolean>>;
     time: number;
     setTime: React.Dispatch<React.SetStateAction<number>>;
-    handleStartStopClick: ()=> void;
-    handleResetClick: ()=> void;
+    handleStartStopClick: () => void;
+    handleResetClick: () => void;
 }
 
 const Stopwatch: React.FC<StopwatchType> = ({
@@ -69,9 +70,13 @@ const Stopwatch: React.FC<StopwatchType> = ({
                     color="primary"
                     className={classes.button}
                     onClick={handleStartStopClick}
+                    style={{width: "fit-content"}}
                 >
-                    <span
-                        className={isRunning ? `mr-1` : `blink mr-1`}> {isRunning ? 'Stop' : 'Start'}</span><SportsScoreIcon/>
+                    <span className={isRunning ? `` : `blink`}>
+                        {isRunning ?
+                            <>Stop <CloseIcon style={{paddingBottom: 2}} fontSize='small'/> </>
+                            : <>Start <SportsScoreIcon/></>}
+                    </span>
                 </Button>
                 <Button
                     variant="contained"
@@ -79,7 +84,7 @@ const Stopwatch: React.FC<StopwatchType> = ({
                     className={classes.button}
                     onClick={handleResetClick}
                 >
-                    Reset
+                    Reset <RestartAltIcon/>
                 </Button>
             </div>
         </div>

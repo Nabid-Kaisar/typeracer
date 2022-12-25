@@ -60,6 +60,7 @@ const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = ({
     }
 
     const handleStartStopClick = () => {
+        resetWordsArr();
         setIsRunning((isRunning) => !isRunning);
     };
 

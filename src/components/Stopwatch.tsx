@@ -31,6 +31,8 @@ interface StopwatchType {
     setIsRunning: React.Dispatch<React.SetStateAction<boolean>>;
     time: number;
     setTime: React.Dispatch<React.SetStateAction<number>>;
+    handleStartStopClick: ()=> void;
+    handleResetClick: ()=> void;
 }
 
 const Stopwatch: React.FC<StopwatchType> = ({
@@ -38,7 +40,9 @@ const Stopwatch: React.FC<StopwatchType> = ({
                                                 isRunning,
                                                 setIsRunning,
                                                 time,
-                                                setTime
+                                                setTime,
+                                                handleStartStopClick,
+                                                handleResetClick
                                             }) => {
     const classes = useStyles();
 
@@ -53,14 +57,6 @@ const Stopwatch: React.FC<StopwatchType> = ({
         return () => clearInterval(interval);
     }, [isRunning]);
 
-    const handleStartStopClick = () => {
-        setIsRunning((isRunning) => !isRunning);
-    };
-
-    const handleResetClick = () => {
-        setTime(0);
-        setIsRunning(false);
-    };
 
     return (
         <div className={containerClassName}>

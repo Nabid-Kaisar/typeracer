@@ -3,7 +3,6 @@ import DisplayText from "./DisplayText";
 import Input from "./Input";
 import Stopwatch from "./Stopwatch";
 import {enterKey} from "../constants/constants";
-import {log} from "util";
 import useKeyHandler from "../hooks/useKeyHandler";
 
 interface TypeEnvContainerTypes {
@@ -16,6 +15,7 @@ interface TypeEnvContainerTypes {
     setTime: Dispatch<SetStateAction<number>>;
     currentIdx: number;
     setCurrentIdx: Dispatch<SetStateAction<number>>;
+    resetWordsArr: ()=>void;
 }
 
 const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = ({
@@ -24,7 +24,8 @@ const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = ({
                                                                time,
                                                                setTime,
                                                                currentIdx,
-                                                               setCurrentIdx
+                                                               setCurrentIdx,
+                                                               resetWordsArr
                                                            }) => {
     const [currentInput, setCurrentInput] = useState('');
 
@@ -40,7 +41,6 @@ const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = ({
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
-        console.log(e)
         if (e.key === enterKey) {
             handleGameStart();
         }
@@ -58,6 +58,16 @@ const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = ({
         setIsRunning(true);
         inputRef?.current?.focus();
     }
+
+    const handleStartStopClick = () => {
+        setIsRunning((isRunning) => !isRunning);
+    };
+
+    const handleResetClick = () => {
+        setTime(0);
+        setIsRunning(false);
+        resetWordsArr();
+    };
 
     useEffect(() => {
         if (currentIdx >= wordsArr.length) {
@@ -97,11 +107,14 @@ const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = ({
 
                 />
                 <Stopwatch
+                    handleStartStopClick={handleStartStopClick}
+                    handleResetClick={handleResetClick}
                     time={time}
                     setTime={setTime}
                     isRunning={isRunning}
                     setIsRunning={setIsRunning}
-                    containerClassName={'text-right ml-5 mt-3'}/>
+                    containerClassName={'text-right ml-5 mt-3'}
+                />
             </div>
 
         </div>

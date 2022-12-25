@@ -14,11 +14,17 @@ function App() {
     const [time, setTime] = useState(0);
     const [currentIdx, setCurrentIdx] = useState(0);
 
+    const resetWordsArr = () => {
+        setWordsArr(fixedWordsArray.map(w => ({word: w, correct: false})));
+    }
+
 
     return (
         <AppContainer>
             <TypeEnvContainer currentIdx={currentIdx} setCurrentIdx={setCurrentIdx} wordsArr={wordsArr}
-                              setWordsArr={setWordsArr} time={time} setTime={setTime}/>
+                              setWordsArr={setWordsArr} time={time} setTime={setTime}
+                              resetWordsArr={resetWordsArr}
+            />
             <Result time={time} wordsArr={wordsArr} wordsCompleted={currentIdx}/>
         </AppContainer>
     );

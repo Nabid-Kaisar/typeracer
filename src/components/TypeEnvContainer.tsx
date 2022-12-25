@@ -4,6 +4,7 @@ import Input from "./Input";
 import Stopwatch from "./Stopwatch";
 import {enterKey} from "../constants/constants";
 import {log} from "util";
+import useKeyHandler from "../hooks/useKeyHandler";
 
 interface TypeEnvContainerTypes {
     wordsArr: {
@@ -31,6 +32,7 @@ const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = ({
 
     const inputRef = useRef<HTMLInputElement>(null);
 
+
     const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         const {value} = e.target;
         if (value === " ") return;
@@ -44,10 +46,7 @@ const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = ({
         }
     }
 
-    useEffect(() => {
-
-        document.addEventListener('keydown', handleKeyDown)
-    }, [])
+    useKeyHandler({eventName: 'keydown', handlerCb: handleKeyDown as EventListener})
 
     const handleGameEnd = () => {
         setIsRunning(false);

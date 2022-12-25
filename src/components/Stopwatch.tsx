@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, KeyboardEventHandler} from 'react';
 import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -28,12 +28,18 @@ const useStyles = makeStyles((theme: Theme) =>
 interface StopwatchType {
     containerClassName: string;
     isRunning: boolean;
-    setIsRunning:  React.Dispatch<React.SetStateAction<boolean>>;
+    setIsRunning: React.Dispatch<React.SetStateAction<boolean>>;
     time: number;
-    setTime:  React.Dispatch<React.SetStateAction<number>>;
+    setTime: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const Stopwatch: React.FC<StopwatchType> = ({containerClassName, isRunning, setIsRunning, time, setTime}) => {
+const Stopwatch: React.FC<StopwatchType> = ({
+                                                containerClassName,
+                                                isRunning,
+                                                setIsRunning,
+                                                time,
+                                                setTime
+                                            }) => {
     const classes = useStyles();
 
 
@@ -68,7 +74,8 @@ const Stopwatch: React.FC<StopwatchType> = ({containerClassName, isRunning, setI
                     className={classes.button}
                     onClick={handleStartStopClick}
                 >
-                    <span className={isRunning ? `mr-1` : `blink mr-1`}> {isRunning ? 'Stop' : 'Start'}</span><SportsScoreIcon/>
+                    <span
+                        className={isRunning ? `mr-1` : `blink mr-1`}> {isRunning ? 'Stop' : 'Start'}</span><SportsScoreIcon/>
                 </Button>
                 <Button
                     variant="contained"

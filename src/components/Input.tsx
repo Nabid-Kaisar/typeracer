@@ -35,21 +35,19 @@ const Input = React.forwardRef((props: InputPropTypes, ref) => {
     const classes = useStyles();
 
     return (
-        <form className={classes.root} noValidate autoComplete="off">
-            <div>
-                <TextField
-                    inputRef={ref}
-                    className={className}
-                    onChange={handleChange}
-                    id="standard-basic"
-                    label={label}
-                    placeholder={placeholder}
-                    value={value}
-                    disabled={disabled}
-                    onKeyDown={handleKeyDown}
-                />
-            </div>
-        </form>
+        <TextField
+            style={{width: '50%'}}
+            inputRef={ref}
+            className={className}
+            onChange={handleChange}
+            id="standard-basic"
+            label={label}
+            placeholder={placeholder}
+            value={value}
+            disabled={disabled}
+            onKeyDown={handleKeyDown}
+        />
+
     );
 })
 

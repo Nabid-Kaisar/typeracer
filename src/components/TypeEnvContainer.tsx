@@ -3,6 +3,7 @@ import DisplayText from "./DisplayText";
 import Input from "./Input";
 import Stopwatch from "./Stopwatch";
 import {enterKey} from "../constants/constants";
+import {log} from "util";
 
 interface TypeEnvContainerTypes {
     wordsArr: {
@@ -36,21 +37,26 @@ const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = ({
         setCurrentInput(value);
     }
 
-    const handleKeyDown = (e:React.KeyboardEvent<HTMLInputElement> ) =>{
+    const handleKeyDown = (e: KeyboardEvent) => {
         console.log(e)
-        if(e.code === enterKey){
+        if (e.key === enterKey) {
             handleGameStart();
         }
     }
 
+    useEffect(() => {
+
+        document.addEventListener('keydown', handleKeyDown)
+    }, [])
+
     const handleGameEnd = () => {
-        setCurrentIdx(0);
         setIsRunning(false);
     }
 
     const handleGameStart = () => {
         setCurrentIdx(0);
         setTime(0);
+        setIsRunning(true);
         inputRef?.current?.focus();
     }
 
@@ -89,7 +95,7 @@ const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = ({
                        handleChange={handleInputChange}
                        disabled={!isRunning}
                        ref={inputRef}
-                       handleKeyDown={handleKeyDown}
+
                 />
                 <Stopwatch
                     time={time}

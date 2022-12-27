@@ -69,6 +69,7 @@ const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = ({
     setTime(0);
     setIsRunning(true);
     setCurrentInput("");
+    resetWordsArr();
     inputRef?.current?.focus();
   };
 

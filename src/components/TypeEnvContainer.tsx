@@ -68,6 +68,7 @@ const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = ({
     setCurrentIdx(0);
     setTime(0);
     setIsRunning(true);
+    setCurrentInput("");
     inputRef?.current?.focus();
   };
 
@@ -110,7 +111,7 @@ const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = ({
   return (
     <div
       className={
-        "w-3/4 border-2 border-[#3f51b5] flex justify-center flex-col p-8 mt-10 w-auto"
+        "w-3/4 border-2 border-[#3f51b5] flex justify-center flex-col p-8 w-auto m-[10%] my-[2%] mx-[10%]"
       }
     >
       <DisplayText wordsArray={wordsArr} />

@@ -8,7 +8,7 @@ export const unitOfResult = 60; // showing in minutes (60seconds)
 export const enterKey = "Enter";
 
 export const wpmColorMapping = [
-  { color: "#00ff00", rangeMin: 60, rangeMax: 999 },
-  { color: "grey", rangeMin: 40, rangeMax: 60 },
-  { color: "#f50057", rangeMin: 0, rangeMax: 40 },
+  { color: "#f50057", rangeMin: 60, rangeMax: 999 },
+  { color: "green", rangeMin: 40, rangeMax: 60 },
+  { color: "grey", rangeMin: 0, rangeMax: 40 },
 ];

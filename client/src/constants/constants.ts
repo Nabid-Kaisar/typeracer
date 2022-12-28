@@ -12,3 +12,5 @@ export const wpmColorMapping = [
   { color: "green", rangeMin: 40, rangeMax: 60 },
   { color: "grey", rangeMin: 0, rangeMax: 40 },
 ];
+
+export const PORT = 8000;

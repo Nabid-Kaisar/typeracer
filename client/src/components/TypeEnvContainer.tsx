@@ -8,7 +8,7 @@ import React, {
   useState,
 } from "react";
 import DisplayText from "./DisplayText";
-import Input from "./Input";
+import Input from "./core/Input";
 import Stopwatch from "./Stopwatch";
 import { enterKey } from "../constants/constants";
 import useKeyHandler from "../hooks/useKeyHandler";

@@ -7,6 +7,8 @@ export const unitOfResult = 60; // showing in minutes (60seconds)
 
 export const enterKey = "Enter";
 
+export const snackbarAutoHideDuration = 3000;
+
 export const wpmColorMapping = [
   { color: "#f50057", rangeMin: 60, rangeMax: 999 },
   { color: "green", rangeMin: 40, rangeMax: 60 },

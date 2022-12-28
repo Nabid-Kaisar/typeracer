@@ -37,7 +37,7 @@ function App() {
   useEffect(() => {
     socket = io(`http://localhost:${PORT}`, { transports: ["websocket"] });
     socket?.on("greetings", (data: GreetingsDataType) => {
-      console.log(data);
+      console.log(data.message);
       setMessage(data.message);
       setsnackbarOpen(true);
     });
@@ -64,7 +64,7 @@ function App() {
       />
       <Result time={time} wordsArr={wordsArr} wordsCompleted={currentIdx} />
       <SnackBar
-        // autoHideDuration={snackbarAutoHideDuration}
+        autoHideDuration={snackbarAutoHideDuration}
         ContentProps={{
           classes: {
             root: "#2f3c87",

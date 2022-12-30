@@ -9,6 +9,7 @@ import SnackbarContent from "@mui/material/SnackbarContent";
 import GreetingsDataType from "../constants/interfaces/GreetingsDataType";
 import { DefaultEventsMap } from "@socket.io/component-emitter";
 import Box from "@material-ui/core/Box";
+import useSocketStore from "../store/socketStore";
 
 const fixedWordsArray = sentenceToWordsArray(getRandomText());
 const fixedWordsArrayWithOtherFields = fixedWordsArray.map((w) => ({
@@ -16,29 +17,29 @@ const fixedWordsArrayWithOtherFields = fixedWordsArray.map((w) => ({
   correct: false,
 }));
 
-let socket: Socket<DefaultEventsMap, DefaultEventsMap>;
 function Race() {
   const [wordsArr, setWordsArr] = useState(fixedWordsArrayWithOtherFields);
   const [time, setTime] = useState(0);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [message, setMessage] = useState("");
-  const [snackbarOpen, setsnackbarOpen] = useState(false);
+  const { socket, snackbarOpen, setSnackbarOpen, newUserConnectionMessage } =
+    useSocketStore();
 
   const handleClose = (
     event: React.SyntheticEvent | Event,
     reason?: string
   ) => {
     setMessage("");
-    setsnackbarOpen(false);
+    setSnackbarOpen(false);
   };
 
   useEffect(() => {
-    socket = io(`http://localhost:${PORT}`, { transports: ["websocket"] });
-    socket?.on("greetings", (data: GreetingsDataType) => {
-      console.log(data.message);
-      setMessage(data.message);
-      setsnackbarOpen(true);
-    });
+    // socket = io(`http://localhost:${PORT}`, { transports: ["websocket"] });
+    // socket?.on("greetings", (data: GreetingsDataType) => {
+    //   console.log(data.message);
+    //   setMessage(data.message);
+    //     setSnackbarOpen(true);
+    // });
     // return () => {
     //   console.log("unmounted");
     //   socket.disconnect();
@@ -77,7 +78,7 @@ function Race() {
             backgroundColor: "#2f3c87",
             color: "white",
           }}
-          message={message}
+          message={newUserConnectionMessage}
         />
       </SnackBar>
     </Box>

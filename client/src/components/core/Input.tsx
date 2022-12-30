@@ -11,6 +11,7 @@ interface InputPropTypes {
   className?: string;
   disabled?: boolean;
   handleKeyDown?: KeyboardEventHandler<HTMLDivElement> | undefined;
+  style?: React.CSSProperties;
 }
 
 const Input = React.forwardRef((props: InputPropTypes, ref) => {
@@ -22,11 +23,12 @@ const Input = React.forwardRef((props: InputPropTypes, ref) => {
     value,
     className,
     handleKeyDown,
+    style,
   } = props;
 
   return (
     <TextField
-      style={{ width: "50%" }}
+      style={style}
       inputRef={ref}
       className={className}
       onChange={handleChange}

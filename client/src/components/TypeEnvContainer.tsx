@@ -118,6 +118,7 @@ const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = ({
       <DisplayText wordsArray={wordsArr} />
       <div className="flex flex-row">
         <Input
+          style={{ width: "50%" }}
           className={"text-left"}
           value={currentInput}
           label={"You Race Here..."}

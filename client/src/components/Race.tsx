@@ -8,6 +8,7 @@ import SnackBar from "@mui/material/Snackbar";
 import SnackbarContent from "@mui/material/SnackbarContent";
 import GreetingsDataType from "../constants/interfaces/GreetingsDataType";
 import { DefaultEventsMap } from "@socket.io/component-emitter";
+import Box from "@material-ui/core/Box";
 
 const fixedWordsArray = sentenceToWordsArray(getRandomText());
 const fixedWordsArrayWithOtherFields = fixedWordsArray.map((w) => ({
@@ -49,7 +50,7 @@ function Race() {
   };
 
   return (
-    <>
+    <Box className="flex-column">
       <TypeEnvContainer
         currentIdx={currentIdx}
         setCurrentIdx={setCurrentIdx}
@@ -79,7 +80,7 @@ function Race() {
           message={message}
         />
       </SnackBar>
-    </>
+    </Box>
   );
 }
 

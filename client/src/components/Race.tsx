@@ -1,6 +1,11 @@
 import TypeEnvContainer from "./TypeEnvContainer";
 import Result from "./Result";
-import { getRandomText, sentenceToWordsArray } from "../helpers/util";
+import {
+  getRandomText,
+  getUserName,
+  isUserRegistered,
+  sentenceToWordsArray,
+} from "../helpers/util";
 import React, { useEffect, useState } from "react";
 import { PORT, snackbarAutoHideDuration } from "../constants/constants";
 import io, { Socket } from "socket.io-client";
@@ -10,6 +15,7 @@ import GreetingsDataType from "../constants/interfaces/GreetingsDataType";
 import { DefaultEventsMap } from "@socket.io/component-emitter";
 import Box from "@material-ui/core/Box";
 import useSocketStore from "../store/socketStore";
+import { useNavigate } from "react-router-dom";
 
 const fixedWordsArray = sentenceToWordsArray(getRandomText());
 const fixedWordsArrayWithOtherFields = fixedWordsArray.map((w) => ({
@@ -22,8 +28,15 @@ function Race() {
   const [time, setTime] = useState(0);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [message, setMessage] = useState("");
-  const { socket, snackbarOpen, setSnackbarOpen, newUserConnectionMessage } =
-    useSocketStore();
+  const {
+    socket,
+    setSocket,
+    setNewUserConnectionMessage,
+    snackbarOpen,
+    setSnackbarOpen,
+    newUserConnectionMessage,
+  } = useSocketStore();
+  const navigate = useNavigate();
 
   const handleClose = (
     event: React.SyntheticEvent | Event,
@@ -34,17 +47,30 @@ function Race() {
   };
 
   useEffect(() => {
-    // socket = io(`http://localhost:${PORT}`, { transports: ["websocket"] });
-    // socket?.on("greetings", (data: GreetingsDataType) => {
-    //   console.log(data.message);
-    //   setMessage(data.message);
-    //     setSnackbarOpen(true);
-    // });
-    // return () => {
-    //   console.log("unmounted");
-    //   socket.disconnect();
-    // };
+    if (!isUserRegistered()) {
+      navigate("/");
+      return;
+    }
+    let userName = getUserName();
+    // call api to register name on server;
+    const sock = io(`http://localhost:${PORT}`, { transports: ["websocket"] });
+    setSocket(sock);
+
+    return () => {
+      socket?.close();
+      setSocket(null);
+    };
   }, []);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("greetings", (data: GreetingsDataType) => {
+        console.log(data.message);
+        setNewUserConnectionMessage(data.message);
+        setSnackbarOpen(true);
+      });
+    }
+  }, [socket]);
 
   const resetWordsArr = () => {
     setWordsArr(fixedWordsArray.map((w) => ({ word: w, correct: false })));

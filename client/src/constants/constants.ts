@@ -17,3 +17,5 @@ export const wpmColorMapping = [
 ];
 
 export const PORT = 8000;
+
+export const userNameLocalStorageKey = "userName";

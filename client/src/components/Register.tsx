@@ -11,12 +11,11 @@ import { PORT } from "../constants/constants";
 import GreetingsDataType from "../constants/interfaces/GreetingsDataType";
 import useConnectSocket from "../hooks/useConnetSocket";
 import useSocketStore from "../store/socketStore";
+import { doRegister } from "../helpers/util";
 
 interface Props {
   // Props for the component go here
 }
-
-let socket: Socket<DefaultEventsMap, DefaultEventsMap>;
 
 const Register: React.FC<Props> = (props) => {
   const [name, setName] = React.useState("");
@@ -45,15 +44,7 @@ const Register: React.FC<Props> = (props) => {
 
   const handleFormSubmit = () => {
     if (!name) return;
-    //call api to register name on server;
-    //maybe connect to websocket here...
-    setSocket(io(`http://localhost:${PORT}`, { transports: ["websocket"] }));
-
-    socket?.on("greetings", (data: GreetingsDataType) => {
-      console.log(data.message);
-      setNewUserConnectionMessage(data.message);
-      setSnackbarOpen(true);
-    });
+    doRegister(name);
     navigate("/race");
   };
 

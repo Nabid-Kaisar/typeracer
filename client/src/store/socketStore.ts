@@ -5,7 +5,9 @@ import snackBar from "../components/core/SnackBar";
 
 interface SocketStoreType {
   socket: Socket<DefaultEventsMap, DefaultEventsMap> | null;
-  setSocket: (socket: Socket<DefaultEventsMap, DefaultEventsMap>) => void;
+  setSocket: (
+    socket: Socket<DefaultEventsMap, DefaultEventsMap> | null
+  ) => void;
   removeSocket: () => void;
   newUserConnectionMessage: string;
   setNewUserConnectionMessage: (message: string) => void;
@@ -15,8 +17,11 @@ interface SocketStoreType {
 
 const useSocketStore = create<SocketStoreType>((set) => ({
   socket: null,
-  setSocket: (socket: Socket<DefaultEventsMap, DefaultEventsMap>) =>
-    set((state) => ({ socket: socket })),
+  setSocket: (socket: Socket<DefaultEventsMap, DefaultEventsMap> | null) =>
+    set((state) => {
+      console.log(socket);
+      return { socket: socket };
+    }),
   removeSocket: () =>
     set((state) => ({
       socket: null,

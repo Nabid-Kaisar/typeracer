@@ -16,12 +16,12 @@ const server = app.listen(PORT, () => {
 
 const io = new Server(server);
 io.on("connection", (socket) => {
-  let message = `User: ${socket.id} connected`;
-  // debugger;
-  socket.broadcast.emit("greetings", { message });
+  socket.broadcast.emit("greetings", {
+    userName: socket.handshake.query.userName,
+  });
+
   socket.on("disconnect", (data) => {
-    console.log("disconnected messsage");
+    console.log("disconnected message");
     console.log(data);
   });
-  console.log("Message is=>", message);
 });

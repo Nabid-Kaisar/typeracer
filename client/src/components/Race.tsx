@@ -8,11 +8,10 @@ import {
 } from "../helpers/util";
 import React, { useEffect, useState } from "react";
 import { PORT, snackbarAutoHideDuration } from "../constants/constants";
-import io, { Socket } from "socket.io-client";
+import io from "socket.io-client";
 import SnackBar from "@mui/material/Snackbar";
 import SnackbarContent from "@mui/material/SnackbarContent";
 import GreetingsDataType from "../constants/interfaces/GreetingsDataType";
-import { DefaultEventsMap } from "@socket.io/component-emitter";
 import Box from "@material-ui/core/Box";
 import useSocketStore from "../store/socketStore";
 import { useNavigate } from "react-router-dom";
@@ -27,7 +26,7 @@ function Race() {
   const [wordsArr, setWordsArr] = useState(fixedWordsArrayWithOtherFields);
   const [time, setTime] = useState(0);
   const [currentIdx, setCurrentIdx] = useState(0);
-  const [message, setMessage] = useState("");
+
   const {
     socket,
     setSocket,
@@ -42,7 +41,7 @@ function Race() {
     event: React.SyntheticEvent | Event,
     reason?: string
   ) => {
-    setMessage("");
+    setNewUserConnectionMessage("");
     setSnackbarOpen(false);
   };
 
@@ -51,9 +50,15 @@ function Race() {
       navigate("/");
       return;
     }
+
     let userName = getUserName();
-    // call api to register name on server;
-    const sock = io(`http://localhost:${PORT}`, { transports: ["websocket"] });
+
+    const sock = io(`http://localhost:${PORT}`, {
+      transports: ["websocket"],
+      query: { userName },
+    });
+    sock.emit("send-userName", { userName });
+
     setSocket(sock);
 
     return () => {
@@ -65,8 +70,7 @@ function Race() {
   useEffect(() => {
     if (socket) {
       socket.on("greetings", (data: GreetingsDataType) => {
-        console.log(data.message);
-        setNewUserConnectionMessage(data.message);
+        setNewUserConnectionMessage(`User ${data.userName} Connected`);
         setSnackbarOpen(true);
       });
     }

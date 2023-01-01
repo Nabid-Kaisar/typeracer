@@ -1,3 +1,3 @@
 export default interface GreetingsDataType {
-  message: string;
+  userName: string;
 }

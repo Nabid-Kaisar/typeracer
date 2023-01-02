@@ -28,8 +28,6 @@ function Race() {
   const [currentIdx, setCurrentIdx] = useState(0);
 
   const {
-    socket,
-    setSocket,
     setNewUserConnectionMessage,
     snackbarOpen,
     setSnackbarOpen,
@@ -57,24 +55,17 @@ function Race() {
       transports: ["websocket"],
       query: { userName },
     });
-    sock.emit("send-userName", { userName });
 
-    setSocket(sock);
+    sock?.on("greetings", (data: GreetingsDataType) => {
+      setNewUserConnectionMessage(`User ${data.userName} Connected`);
+      setSnackbarOpen(true);
+    });
 
     return () => {
-      socket?.close();
-      setSocket(null);
+      console.log("disconnecting");
+      sock?.disconnect();
     };
   }, []);
-
-  useEffect(() => {
-    if (socket) {
-      socket.on("greetings", (data: GreetingsDataType) => {
-        setNewUserConnectionMessage(`User ${data.userName} Connected`);
-        setSnackbarOpen(true);
-      });
-    }
-  }, [socket]);
 
   const resetWordsArr = () => {
     setWordsArr(fixedWordsArray.map((w) => ({ word: w, correct: false })));

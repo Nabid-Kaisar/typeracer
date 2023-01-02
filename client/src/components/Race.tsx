@@ -16,6 +16,7 @@ import Box from "@material-ui/core/Box";
 import useSocketStore from "../store/socketStore";
 import { useNavigate } from "react-router-dom";
 import { DefaultEventsMap } from "@socket.io/component-emitter";
+import RTTDataType from "../constants/interfaces/RTTDataType";
 
 const fixedWordsArray = sentenceToWordsArray(getRandomText());
 const fixedWordsArrayWithOtherFields = fixedWordsArray.map((w) => ({

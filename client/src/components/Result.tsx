@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { WordsArrayType } from "./DisplayText";
@@ -7,6 +7,7 @@ import { pickColorFromWpm } from "../helpers/util";
 import Avatar from "@mui/material/Avatar";
 import { Socket } from "socket.io-client";
 import { DefaultEventsMap } from "@socket.io/component-emitter";
+import RTTDataType from "../constants/interfaces/RTTDataType";
 
 const useStyles = makeStyles({
   root: {
@@ -26,18 +27,33 @@ interface ResultInfo {
 
 const Result: React.FC<ResultInfo> = ({ time, wordsCompleted, socket }) => {
   const classes = useStyles();
+  const [otherPlayersWPM, setOtherPlayersWPM] = useState<number | null>(null);
+
+  useEffect(() => {
+    socket?.on("rtt", (data: RTTDataType) => {
+      setOtherPlayersWPM(data.wpm);
+    });
+  }, [socket]);
 
   if (time === 0) return null;
   const wpm = ((unitOfResult / time) * wordsCompleted).toFixed(0);
-  socket?.emit("rtt");
+  socket?.emit("rtt", { wpm: wpm });
 
   return (
-    <div className={classes.root}>
-      <Typography variant="h5" component="h5">
-        Your WPM is:
-      </Typography>
-      <WpmText wpm={Number(wpm)} />
-    </div>
+    <>
+      <div className={classes.root}>
+        <Typography variant="h5" component="h5">
+          Your WPM is:
+        </Typography>
+        <WpmText wpm={Number(wpm)} />
+      </div>
+      {otherPlayersWPM === null ? null : (
+        <div className="text-center">
+          {" "}
+          Other Player's WPM: <WpmText wpm={otherPlayersWPM} />{" "}
+        </div>
+      )}
+    </>
   );
 };
 

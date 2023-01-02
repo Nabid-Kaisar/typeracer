@@ -20,6 +20,12 @@ io.on("connection", (socket) => {
     userName: socket.handshake.query.userName,
   });
 
+  socket.on("rtt", (data) => {
+    socket.broadcast.emit("rtt", {
+      wpm: data.wpm,
+    });
+  });
+
   socket.on("disconnect", (data) => {
     console.log("disconnected message");
     console.log(data);

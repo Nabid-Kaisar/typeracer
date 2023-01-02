@@ -27,12 +27,12 @@ const Register: React.FC<Props> = (props) => {
   };
 
   return (
-    <Box component="div" className="flex flex-col my-[2%]">
+    <Box component="div" className="flex flex-col my-[2%] w-1/2">
       <Input
         value={name}
         className="w-auto"
         handleChange={handleNameChange}
-        label={"Please Enter User Name:"}
+        label={"Enter Player Name"}
       />
       <Box className="my-[5%] text-center">
         <Button variant="contained" color="primary" onClick={handleFormSubmit}>

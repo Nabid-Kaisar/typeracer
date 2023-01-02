@@ -8,13 +8,14 @@ import {
 } from "../helpers/util";
 import React, { useEffect, useState } from "react";
 import { PORT, snackbarAutoHideDuration } from "../constants/constants";
-import io from "socket.io-client";
+import io, { Socket } from "socket.io-client";
 import SnackBar from "@mui/material/Snackbar";
 import SnackbarContent from "@mui/material/SnackbarContent";
 import GreetingsDataType from "../constants/interfaces/GreetingsDataType";
 import Box from "@material-ui/core/Box";
 import useSocketStore from "../store/socketStore";
 import { useNavigate } from "react-router-dom";
+import { DefaultEventsMap } from "@socket.io/component-emitter";
 
 const fixedWordsArray = sentenceToWordsArray(getRandomText());
 const fixedWordsArrayWithOtherFields = fixedWordsArray.map((w) => ({
@@ -26,6 +27,10 @@ function Race() {
   const [wordsArr, setWordsArr] = useState(fixedWordsArrayWithOtherFields);
   const [time, setTime] = useState(0);
   const [currentIdx, setCurrentIdx] = useState(0);
+  const [socket, setSocket] = useState<Socket<
+    DefaultEventsMap,
+    DefaultEventsMap
+  > | null>(null);
 
   const {
     setNewUserConnectionMessage,
@@ -56,6 +61,8 @@ function Race() {
       query: { userName },
     });
 
+    setSocket(sock);
+
     sock?.on("greetings", (data: GreetingsDataType) => {
       setNewUserConnectionMessage(`User ${data.userName} Connected`);
       setSnackbarOpen(true);
@@ -64,6 +71,7 @@ function Race() {
     return () => {
       console.log("disconnecting");
       sock?.disconnect();
+      setSocket(null);
     };
   }, []);
 
@@ -81,8 +89,14 @@ function Race() {
         time={time}
         setTime={setTime}
         resetWordsArr={resetWordsArr}
+        socket={socket}
       />
-      <Result time={time} wordsArr={wordsArr} wordsCompleted={currentIdx} />
+      <Result
+        socket={socket}
+        time={time}
+        wordsArr={wordsArr}
+        wordsCompleted={currentIdx}
+      />
       <SnackBar
         autoHideDuration={snackbarAutoHideDuration}
         ContentProps={{

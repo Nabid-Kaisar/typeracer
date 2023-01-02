@@ -5,6 +5,8 @@ import { WordsArrayType } from "./DisplayText";
 import { unitOfResult } from "../constants/constants";
 import { pickColorFromWpm } from "../helpers/util";
 import Avatar from "@mui/material/Avatar";
+import { Socket } from "socket.io-client";
+import { DefaultEventsMap } from "@socket.io/component-emitter";
 
 const useStyles = makeStyles({
   root: {
@@ -19,13 +21,15 @@ interface ResultInfo {
   time: number;
   wordsArr: Array<WordsArrayType>;
   wordsCompleted: number;
+  socket: Socket<DefaultEventsMap, DefaultEventsMap> | null;
 }
 
-const Result: React.FC<ResultInfo> = ({ time, wordsArr, wordsCompleted }) => {
+const Result: React.FC<ResultInfo> = ({ time, wordsCompleted, socket }) => {
   const classes = useStyles();
 
   if (time === 0) return null;
   const wpm = ((unitOfResult / time) * wordsCompleted).toFixed(0);
+  socket?.emit("rtt");
 
   return (
     <div className={classes.root}>

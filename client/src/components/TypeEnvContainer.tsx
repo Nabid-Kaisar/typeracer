@@ -12,6 +12,8 @@ import Input from "./core/Input";
 import Stopwatch from "./Stopwatch";
 import { enterKey } from "../constants/constants";
 import useKeyHandler from "../hooks/useKeyHandler";
+import { Socket } from "socket.io-client";
+import { DefaultEventsMap } from "@socket.io/component-emitter";
 
 interface TypeEnvContainerTypes {
   wordsArr: {
@@ -24,6 +26,7 @@ interface TypeEnvContainerTypes {
   currentIdx: number;
   setCurrentIdx: Dispatch<SetStateAction<number>>;
   resetWordsArr: () => void;
+  socket: Socket<DefaultEventsMap, DefaultEventsMap> | null;
 }
 
 const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = ({
@@ -34,6 +37,7 @@ const TypeEnvContainer: React.FC<TypeEnvContainerTypes> = ({
   currentIdx,
   setCurrentIdx,
   resetWordsArr,
+  socket,
 }) => {
   const [currentInput, setCurrentInput] = useState("");
 

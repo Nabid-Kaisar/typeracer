@@ -8,6 +8,7 @@ import Avatar from "@mui/material/Avatar";
 import { Socket } from "socket.io-client";
 import { DefaultEventsMap } from "@socket.io/component-emitter";
 import RTTDataType from "../constants/interfaces/RTTDataType";
+import RaceTrack from "./RaceTrack";
 
 const useStyles = makeStyles({
   root: {
@@ -53,6 +54,7 @@ const Result: React.FC<ResultInfo> = ({ time, wordsCompleted, socket }) => {
           Other Player's WPM: <WpmText wpm={otherPlayersWPM} />{" "}
         </div>
       )}
+      <RaceTrack socket={socket} />
     </>
   );
 };

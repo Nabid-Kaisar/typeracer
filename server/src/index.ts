@@ -16,6 +16,7 @@ const server = app.listen(PORT, () => {
 
 const io = new Server(server);
 io.on("connection", (socket) => {
+  (socket as any).userName = socket.handshake.query.userName;
   socket.broadcast.emit("greetings", {
     userName: socket.handshake.query.userName,
   });
@@ -24,6 +25,13 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("rtt", {
       wpm: data.wpm,
     });
+  });
+
+  socket.on("requestAllPlayers", async (data) => {
+    let playerList = await io.fetchSockets();
+
+    playerList = playerList.map((player) => (player as any).userName);
+    socket.emit("getAllPlayers", { playerList: playerList });
   });
 
   socket.on("disconnect", (data) => {
